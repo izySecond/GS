@@ -1,0 +1,1 @@
+int determine_oparator(int *p_stack, int *p_stack_size, char c);

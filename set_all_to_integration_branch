@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# This script 
+#    o switches this module and all submodules to integration branch
+#    o pulls the newest commit
+
+wdir=$(pwd)
+
+# Get all submodules
+# A pipe after git submodule leads to an error in a shell script: use multiple steps
+list=$( git submodule) 
+list=". $(echo "$list" | awk '{print $2}')"
+
+# Test, if all branches are clear
+for i in $list ; do 
+   cd $wdir
+   cd $i
+   if [[ `git status --porcelain` ]]; then
+	   echo "(Sub)module $i contains changes. Cannot switch to integration branch."
+	   exit
+   else
+	   echo "(Sub)module $i is clean (contains no changes)."
+   fi
+done
+# All modules and submodules are clean
+# Set all Branches to integration branch
+
+for i in $list ; do 
+   cd $wdir
+   cd $i
+   echo ""
+   echo "Switch (sub)module $i to integration branch."
+   erg=$(git branch -l)
+   erg=$(echo "$erg" | awk '{sub(/^*/, "", $1 ); print $0}' | tr -d " " | grep integration)
+   git fetch
+   if [[ "$erg" == "integration" ]]; then
+      echo "Use existing local branch integration."
+   else
+      echo "fetch integration branch from origin"
+      git checkout --track origin/integration
+   fi
+   git branch -u origin/integration
+   git pull
+done
+
+# EOF
+

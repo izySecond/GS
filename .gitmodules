@@ -1,0 +1,12 @@
+[submodule "stm32cubef4"]
+	path = stm32cubef4
+	url = https://git.haw-hamburg.de/tiboard_dev/stm32cubef4.git
+[submodule "ITS_BRD_LIB"]
+	path = ITS_BRD_LIB
+	url = https://git.haw-hamburg.de/tiboard_dev/its_brd_lib.git
+[submodule "DisplayWaveshare"]
+	path = DisplayWaveshare
+	url = https://git.haw-hamburg.de/tiboard_dev/DisplayWaveshare.git
+[submodule "ITS_Keil_prj_base"]
+	path = ITS_Keil_prj_base
+	url = https://git.haw-hamburg.de/tiboard_dev/ITS_Keil_prj_base.git
